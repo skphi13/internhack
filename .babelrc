@@ -1,0 +1,18 @@
+/**
+ * We are transpiling with babel's CLI when building the server
+ * executed assets, and with webpack and the babel-loader when preparing
+ * the client-side bundles. This config serves both of those needs.
+ *
+ * There is some complexity around different environments and their
+ * specific babel configurations (presets and plugins). That complexity
+ * is managed in our custom preset:
+ * https://github.homeawaycorp.com/Catalyst/catalyst-scripts/blob/master/packages/catalyst-scripts-babel/preset/index.js
+**/
+
+{
+    "presets": ["module:@homeaway/catalyst-scripts-babel/preset"],
+    "plugins": [
+        ["@babel/plugin-proposal-decorators", {"legacy": true}],
+        ["@babel/plugin-proposal-class-properties", {"loose": true}]
+    ]
+}

@@ -1,0 +1,38 @@
+@import '~@homeaway/baseline/release/variables/_variables.less';
+
+// -- Responsive mixins --------------
+
+// We are "Mobile first" in this application and are primarily syling
+// differences at the tablet level (768) and above.
+//
+// Usage:
+//   .backdrop {
+//       opacity: .7;
+//
+//       .tablet-plus({
+//           opacity: .5;
+//       });
+//   }
+
+// Mixin to target tablet size (768) and greater
+.tablet-plus(@rules) {
+    @media (min-width: @screen-sm-min) {
+        @rules();
+    }
+}
+
+// Mixin to target desktop size (992) and greater
+.desktop-plus(@rules) {
+    @media (min-width: @screen-md-min) {
+        @rules();
+    }
+}
+
+// -- Flexbox mixins --------------
+
+// Vertical and horizontally cetner contents of a flexbox
+.centered-flex() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

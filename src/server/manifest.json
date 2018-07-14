@@ -1,0 +1,117 @@
+{
+  "server": {
+    "app": {
+
+      // Version numbers used for scripts in index.hbs
+      "versions": {
+        "edap": "8.7.0",
+        "knotty": "0.4.0"
+      },
+
+      // Url path segment under which all traffic should be routed to your app
+      "urlPrefix": "hau",
+
+      // API examples config
+      // Note that we are basing the url off of the MPAAS_ENVIRONMENT variable that
+      // gets set for you in multipaas
+      "headerFooterService": {
+        "$filter": "env.MPAAS_ENVIRONMENT",
+        "$base": {
+          "connectionTimeout": 1000,
+          "timeout": 3000
+        },
+        "development": {
+          "baseUrl": "http://header-footer-service-test.us-aus-1-dts.slb.dts.vxe.away.black/api"
+        },
+        "test": {
+          "baseUrl": "http://header-footer-service-test.service.local/api"
+        },
+        "stage": {
+          "baseUrl": "http://header-footer-service-stage.service.local/api"
+        },
+        "production": {
+          "baseUrl": "http://header-footer-service-production.service.local/api"
+        }
+      }
+    }
+  },
+
+  // HAPI Plugin registrations
+
+  "register": {
+    // Support Favicons
+    "hapi-favicon-handler": {
+      "register": "require:@homeaway/hapi-favicon-handler"
+    },
+    // Add Linkerd headers to requests
+    "hapi-linkerd": {
+      "register": "require:@homeaway/hapi-linkerd"
+    },
+    // Dev proxy for bizops URLs
+    "hapi-dev-bizops-proxy-handler": {
+      "register": "require:@homeaway/hapi-dev-bizops-proxy-handler",
+      "options": {
+        "enabled": "env:DEV_TOOLS|b"
+      }
+    },
+    // Support for handling requests to static assets
+    "hapi-static-file-handler": {
+      "register": "require:@homeaway/hapi-static-file-handler",
+      "options": {
+        "pathPrefix": "static",
+        "dirPrefix": "build/static"
+      }
+    },
+    // CSRF enablement
+    "crumb": {
+      "register": "require:crumb",
+      "options": {
+        "cookieOptions": {
+          "isSecure": {"$filter": "env.NODE_ENV", "$default": false, "production": true}
+        }
+      }
+    },
+    // Server route for client-side logging/error handling
+    "hapi-knotty-handler": {
+      "register": "require:@homeaway/hapi-knotty-handler",
+      "options": {
+        "errorRoute": "/hau/errors"
+      }
+    },
+    // Determine site based on URL
+    "hapi-global-config-resolution": {
+      "register": "require:@homeaway/hapi-global-config-resolution"
+    },
+    // Transpile on-the-fly in development mode
+    "dev-babel": {
+      "register": "require:./plugins/devBabel"
+    },
+    // Allow node to understand less/css files
+    "ssr-styles-support": {
+      "register": "require:./plugins/ssrStylesSupport"
+    },
+    // Allow node to understand image files
+    "ssr-images-support": {
+      "register": "require:@homeaway/hapi-ssr-images-support",
+      "options": {
+        "limit": 10000
+      }
+    },
+    // Configure handlebars and part of CDN support
+    "hbs-view-support": {
+      "register": "require:./plugins/hbsViewSupport"
+    },
+    // Add Baseline URL to the view context
+    "@homeaway/hapi-cdn-baseline": {
+      "register": "require:@homeaway/hapi-cdn-baseline"
+    },
+    // Add ability to resolve webpack bundles in page template
+    "@homeaway/hapi-cdn-webpack-assets": {
+      "register": "require:@homeaway/hapi-cdn-webpack-assets"
+    },
+    // Add web font resolution support for brands
+    "@homeaway/hapi-web-fonts": {
+      "register": "require:@homeaway/hapi-web-fonts"
+    }
+  }
+}

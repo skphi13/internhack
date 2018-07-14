@@ -1,0 +1,178 @@
+{
+    "builders": {
+        "server": {
+            "register": "require:@homeaway/catalyst-scripts-babel/builder",
+            "after": ["builders.clean"]
+        },
+        "client": {
+            "register": "require:@homeaway/catalyst-scripts-webpack/builder",
+            "after": ["builders.clean"]
+        },
+        "baseline": {
+            "register": "require:@homeaway/catalyst-scripts-baseline",
+            "options": {
+                "src": "tools/baseline/baseline-optimized.less",
+                "baselineThemes": [
+                    "gt"
+                    // "vrbo",
+                    // "lx",
+                    // "hd",
+                    // "bab",
+                    // "vr",
+                    // "vrbo",
+                    // "odhr",
+                    // "stayz",
+                    // "stayz-legacy",
+                    // "haem"
+                ]
+            }
+        },
+        "lingua": {
+            "register": "require:@homeaway/catalyst-scripts-lingua",
+            "options": {
+                "translations": {
+                    "bundles": [{
+                        "namespace": "tm/glossary",
+                        "categories": [
+                            "messages"
+                        ],
+                        "versionId": {
+                            "$filter": "env.NODE_ENV",
+                            "production": "production-version",
+                            "$default": "latest-writable"
+                        }
+                    }],
+                    "locales": ["en"],
+                    "outputDirectory": "build/lingua",
+                    "defaultLocale": "en"
+                }
+            }
+        },
+        "copy": {
+            "register": "require:@homeaway/catalyst-scripts-copy",
+            "options": {
+                "src": [
+                    "build/static/*",
+                    "!build/static/cdn/*",
+                    "!build/static/*.json",
+                    "!build/static/manifest.*.js",
+                    "!build/static/manifest.*.js.map",
+                    "!build/static/outputStats"
+                ],
+                "dest": "build/static/cdn/"
+            },
+            "after": [
+                "builders.baseline",
+                "builders.client"
+            ]
+        },
+        "clean": {
+            "register": "require:@homeaway/catalyst-scripts-clean",
+            "options": {
+                "src": [
+                    "build/**/*",
+                    "!build/lingua"
+                ]
+            }
+        }
+    },
+
+    "starters": {
+        "node": {
+            "register": "require:@homeaway/catalyst-scripts-node-dev",
+            "options": {
+                "$filter": "env.cs_args_mode",
+                "$default": {
+                    "env": {
+                        "NODE_PORT": 8082,
+                        "DEV_TOOLS": true
+                    }
+                },
+                "prod": {
+                    "entryScript": "build/server/index.js",
+                    "command": "node",
+                    "env": {
+                        "NODE_ENV": "production",
+                        "MPAAS_ENVIRONMENT": "development",
+                        "NODE_PORT": 8080,
+                        "BYPASS_CDN": true,
+                        "DEV_TOOLS": false
+                    },
+                    "args": {
+                        "inspect": false,
+                        "noDeps": false,
+                        "respawn": false
+                    }
+                },
+                "serverOnly": {
+                    "env": {
+                        "NODE_PORT": 8080,
+                        "BYPASS_CDN": true,
+                        "DEV_TOOLS": false
+                    }
+                }
+            }
+        },
+        "webpack": {
+            "register": "require:@homeaway/catalyst-scripts-webpack/starter",
+            "after": ["builders.baseline", "builders.lingua"]
+        }
+    },
+
+    "testers": {
+        "mocha": {
+            "register": "require:@homeaway/catalyst-scripts-mocha",
+            "options": {
+                "src": [
+                    "src/**/*.test.js"
+                ],
+                "args": {
+                    "watch": "env:cs_args_watch|b",
+                    "require": [
+                        "tests/setup.js",
+                        "@babel/register",
+                        "ignore-styles",
+                        "source-map-support/register"
+                    ]
+                },
+                "coverage": {
+                    "$filter": "env.cs_args_coverage",
+                    "true": {
+                        "include": ["src/**"],
+                        "exclude": [
+                            "src/**/*.test.js",
+                            "src/server/index.js",
+                            "src/universal/index.js",
+                            "src/universal/Root.js"
+                        ],
+                        "statements": 50,
+                        "branches": 50,
+                        "functions": 50,
+                        "lines": 50
+                    },
+                    "$default": false
+                }
+            }
+        }
+    },
+
+    "linters": {
+        "eslint": {
+            "register": "require:@homeaway/catalyst-scripts-eslint",
+            "options": {
+                "src": [
+                    "src/**/*.js",
+                    "tests/**/*.js"
+                ]
+            }
+        },
+        "stylelint": {
+            "register": "require:@homeaway/catalyst-scripts-stylelint",
+            "options": {
+                "src": [
+                    "src/universal/**/*.less"
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,123 @@
+{
+  "name": "@homeaway/mbernal-hau-helloworld-ui",
+  "version": "0.1.0",
+  "description": "",
+  "license": "UNLICENSED",
+  "author": {
+    "name": "Miguel Bernal",
+    "email": "mbernal@homeaway.com"
+  },
+  "contributors": [
+    {
+      "name": "Miguel Bernal",
+      "email": "mbernal@homeaway.com"
+    }
+  ],
+  "publishConfig": {
+    "registry": "https://npm.homeawaycorp.com/artifactory/api/npm/npm-local"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.homeawaycorp.com:hau/mbernal-hau-helloworld-ui.git"
+  },
+  "bugs": {
+    "url": "http://github.homeawaycorp.com/hau/mbernal-hau-helloworld-ui/issues"
+  },
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=5.0.0"
+  },
+  "main": "./build/server/index.js",
+  "scripts": {
+    "clean": "catalyst-scripts build:clean",
+    "build": "catalyst-scripts build",
+    "start": "catalyst-scripts start",
+    "start:server": "catalyst-scripts build, start:node --mode=serverOnly",
+    "start:prodTest": "catalyst-scripts build, start:node --mode=prod",
+    "test": "catalyst-scripts lint, test:mocha --coverage",
+    "test:unit": "catalyst-scripts test:mocha",
+    "test:unit:watch": "catalyst-scripts test:mocha --watch",
+    "test:lint": "catalyst-scripts lint",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git diff --exit-code --stat"
+    ],
+    "src/**/*.less": [
+      "stylelint --fix",
+      "git diff --exit-code --stat"
+    ]
+  },
+  "dependencies": {
+    "@homeaway/catalyst": "^6.0.0",
+    "@homeaway/environment-resolver": "^1.0.0",
+    "@homeaway/global-config": "^1.0.3",
+    "@homeaway/hapi-cdn-baseline": "^2.0.0",
+    "@homeaway/hapi-cdn-webpack-assets": "^2.0.0",
+    "@homeaway/hapi-dev-bizops-proxy-handler": "^1.0.0",
+    "@homeaway/hapi-favicon-handler": "^2.0.0",
+    "@homeaway/hapi-global-config-resolution": "^3.0.1",
+    "@homeaway/hapi-knotty-handler": "^0.6.0",
+    "@homeaway/hapi-linkerd": "^0.3.1",
+    "@homeaway/hapi-ssr-images-support": "^2.0.0",
+    "@homeaway/hapi-static-file-handler": "^1.0.0",
+    "@homeaway/hapi-web-fonts": "^2.0.0",
+    "@homeaway/http-client": "^2.1.0",
+    "@homeaway/lingua-file-reader": "^2.0.0",
+    "@homeaway/react-aspect-ratio-card": "^1.1.3",
+    "@homeaway/react-buttons": "^3.0.7",
+    "@homeaway/react-card-carousel": "^1.2.0",
+    "@homeaway/react-form-components": "^3.0.1",
+    "@homeaway/react-loading-overlay": "^5.0.0",
+    "@homeaway/react-modal": "^6.0.0",
+    "@homeaway/react-svg": "^1.4.1",
+    "@homeaway/redux-middleware-adapter": "^1.1.2",
+    "@homeaway/svg-defs": "^2.4.0",
+    "boom": "^5.1.0",
+    "classnames": "^2.2.5",
+    "core-js": "^2.5.7",
+    "crumb": "^6.0.3",
+    "css-modules-require-hook": "^4.1.0",
+    "handlebars": "^4.0.6",
+    "hapi": "^16.1.0",
+    "lodash.throttle": "^4.1.1",
+    "mobile-detect": "^1.3.5",
+    "postcss-less": "^1.1.0",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-hot-loader": "^4.1.2",
+    "react-particles-js": "^2.2.0",
+    "react-redux": "^5.0.0",
+    "react-transition-group": "^2.3.1",
+    "redux": "^3.6.0",
+    "serialize-javascript": "^1.3.0",
+    "source-map-support": "^0.5.0",
+    "superagent": "^3.5.0",
+    "vision": "^4.1.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.47",
+    "@babel/plugin-proposal-decorators": "^7.0.0-beta.47",
+    "@homeaway/baseline": "^3.14.2",
+    "@homeaway/catalyst-scripts": "^1.0.0",
+    "@homeaway/catalyst-scripts-babel": "^1.0.0",
+    "@homeaway/catalyst-scripts-baseline": "^1.0.0",
+    "@homeaway/catalyst-scripts-clean": "^1.0.0",
+    "@homeaway/catalyst-scripts-copy": "^1.0.0",
+    "@homeaway/catalyst-scripts-lingua": "^1.0.0",
+    "@homeaway/catalyst-scripts-webpack": "^1.0.0",
+    "@homeaway/catalyst-scripts-eslint": "^1.0.0",
+    "@homeaway/catalyst-scripts-stylelint": "^1.0.0",
+    "@homeaway/catalyst-scripts-node-dev": "^1.0.1",
+    "@homeaway/catalyst-scripts-mocha": "^1.0.0",
+    "@homeaway/eslint-config": "^3.0.0",
+    "@homeaway/node-stylelint": "^3.0.0",
+    "enzyme-adapter-react-16": "^1.0.0",
+    "eslint-plugin-react": "^7.0.1",
+    "husky": "^0.14.3",
+    "ignore-styles": "^5.0.1",
+    "lint-staged": "^7.0.5"
+  }
+}

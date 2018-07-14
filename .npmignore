@@ -1,0 +1,16 @@
+.publish
+docs
+node_modules
+tests
+tools
+.babelrc
+.eslintrc.json
+.npmrc
+gulpfile.babel.js
+gulpfile.js
+.gitignore
+.editorconfig
+Makefile
+targets.mk
+properties.mk
+npm-shrinkwrap.json

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang={{lang}}>
+<head>
+    {{!-- TODO: Lingua page title--}}
+    <title>My Page</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {{!-- Baseline & Fonts --}}
+    <link rel="stylesheet" href="{{baseline}}">
+    <link rel="stylesheet" href="{{webFont}}" type="text/css">
+
+    {{!-- CSS Bundle --}}
+    <link rel="stylesheet" type="text/css" href="{{resolveBundle 'bundle.css'}}">
+
+    {{!-- Cdn-Logos Favicon --}}
+    <link rel="shortcut icon" href="{{favicon}}">
+
+    {{!-- ADL and EDAP --}}
+    <script>
+        window.analyticsdatalayer = {{{analyticsDataLayer}}};
+        window.edapOptions = {
+            skipPageview: true,
+            skipFlush: true
+        };
+        window.edap = window.edap || [];
+    </script>
+    <script type="text/javascript" src="//csvcus.homeaway.com/rsrcs/edap-integrations/{{versions.edap}}/javascripts/edap-integrations.min.js" async></script>
+</head>
+<body>
+
+    {{!-- Main entry point for react app --}}
+    <div id="root">{{{body}}}</div>
+
+    {{!-- Catch client-side errors and log to server. Uses CSRF token provided
+          by hapi plugin crumb. Setup early to catch loading errors too --}}
+    <script src="//csvcus.homeaway.com/rsrcs/knotty/{{versions.knotty}}/knotty.min.js"></script>
+    <script>
+        ha.knotty('{{{errorUrl}}}', '{{{crumb}}}');
+        ha.crumb = '{{{crumb}}}';
+    </script>
+
+    {{!-- Redux state --}}
+    <script>
+        window.__INITIAL_STATE__ = {{{initialState}}};
+    </script>
+
+    {{!-- Webpack's Manifest (required in non-dev envs)--}}
+    <script>
+        window.cdnUrl = {{{cdnUrl}}};
+        {{{manifestHelper}}}
+    </script>
+
+    {{!-- Client bundle loading --}}
+    <script src="{{resolveBundle 'vendor.js'}}"></script>
+    <script src="{{resolveBundle 'bundle.js'}}"></script>
+
+</body>
+</html>

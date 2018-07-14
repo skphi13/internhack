@@ -1,0 +1,10 @@
+{
+    "root": true,
+    "parser": "babel-eslint",
+    "extends": [
+        "@homeaway/eslint-config",
+        "@homeaway/eslint-config/node6",
+        "@homeaway/eslint-config/es6",
+        "@homeaway/eslint-config/react"
+    ]
+}
