@@ -34,43 +34,46 @@ class Page1Container extends Component {
     handlePost() {
         this.props.actions.postName('Ringo');
     }
-
     render() {
         return (
             <div>
                 <div className="wrapper">
-                    <Particles 
-                    params={{
-                        particles: {
-                            number: {
-                                value: 50
-                            },
-                            line_linked: {
-                                shadow: {
-                                    enable: false,
-                                    color: "#3CA9D1",
-                                    blur: 5
+                    <Particles
+                        params={{
+                            particles: {
+                                number: {
+                                    value: 50
+                                },
+                                line_linked: {
+                                    shadow: {
+                                        enable: false,
+                                        color: '#3CA9D1',
+                                        blur: 5
+                                    }
                                 }
                             }
-                        }
-                    }}
-                    style={{
-                        position: "fixed",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        zindex: 4
-                    }} />
-                                
-                    <h1>BorrowAway</h1>
-                    <NewItemModal className="carousel"/>    
+                        }}
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            zindex: 4
+                        }}
+                    />
+
+                    <h1>Plan Your Trip!</h1>
+
                 </div>
-                <Carousel 
-                style={{
-                    margin: '5em'
-                    }}
-                />
+                <div>
+                    <Carousel
+                        style={{
+                            margin: '5em'
+                        }}
+                    />
+                </div>
+
             </div>
         );
     }

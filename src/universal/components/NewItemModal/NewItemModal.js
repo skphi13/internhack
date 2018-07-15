@@ -24,50 +24,50 @@ class NewItemModal extends Component {
     }
 
     render() {
-        return(
+        return (
             <div>
-                <Button onClick={this.handleOpen} label="Post an Item" />
+                <Button onClick={this.handleOpen} label="Add a destination" />
                 <Modal
                     id="modal-example-1"
                     isOpen={this.state.isOpen}
                     onClose={this.handleClose}
-                    title="Post an Item"
+                    title="Add a Place"
                 >
                     <form role="form">
                         <div className="input-container" aria-label="Big form">
-                        <div className="row">
-                            <div className="col-xs-6">
-                                <FormInput
-                                    id="Item name"
-                                    type="text"
-                                    name="Item name"
-                                    label="Item name"
-                                />
+                            <div className="row">
+                                <div className="col-xs-6">
+                                    <FormInput
+                                        id="Place name"
+                                        type="text"
+                                        name="Place name"
+                                        label="Place name"
+                                    />
+                                </div>
+                                <div className="col-xs-6">
+                                    <FormInput
+                                        id="PlaceURL"
+                                        type="text"
+                                        name="PlaceURL"
+                                        label="Place image URL"
+                                    />
+                                </div>
                             </div>
-                            <div className="col-xs-6">
-                                <FormInput
-                                    id="ImageURL"
-                                    type="text"
-                                    name="ImageURL"
-                                    label="Item image URL"
-                                />
-                            </div>
-                        </div>
-                            
-                        <FormTextArea
-                            id="description"
-                            label="Description"
-                            className="custom-class"
-                            value={this.state.controlledValue}
-                            onChange={this.handleTextChange}
-                        />
-                            
+
+                            <FormTextArea
+                                id="description"
+                                label="Description"
+                                className="custom-class"
+                                value={this.state.controlledValue}
+                                onChange={this.handleTextChange}
+                            />
+
                         </div>
                     </form>
                     <Button label="Submit" />
                 </Modal>
             </div>
-        )
+        );
     }
 }
 

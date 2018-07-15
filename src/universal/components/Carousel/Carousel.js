@@ -11,45 +11,35 @@ class Carousel extends Component {
         this.aspectRatio = '4x3';
         this.items = [
             {
-                name: "Bike",
-                image:"https://farm3.staticflickr.com/2408/2290514556_4290c1e408_z.jpg?zz&#x3D;1",
-                desc:"Comuter bike great for riding to and from work."
+                name: 'Austin',
+                image: 'https://res.cloudinary.com/simpleview/image/upload/c_limit,f_auto,h_1200,q_75,w_1200/v1/clients/austin/Austin_Boardwalk_Photo_Credit_Arts_Labor_Internal_Use_Only_Request_Permissions_47b72dcc-3318-4990-8bd8-6f988525becb.jpg',
+                desc: '',
             },
             {
-                name:"$100.00",
-                image:"https://farm8.staticflickr.com/7154/6757867273_9da5ec1a01_z.jpg",
-                desc:"Borrow a 100 bucks!"
+                name: 'Dallas',
+                image: 'https://www.100resilientcities.org/wp-content/uploads/2017/06/Dallas-hero-crop.jpg',
+                desc: ''
             },
             {
-                name: "Old Cool Car",
-                image:"https://farm3.staticflickr.com/2909/14343632187_367a706e42_z.jpg",
-                desc:"Impress your friends or go to a car show with this vintage automobile."
+                name: 'Houston',
+                image: 'https://res.cloudinary.com/simpleview/image/upload/c_fill,f_auto,h_660,q_50,w_1920/v1/clients/houston/downtownskyline_dusk_2200x1458_fb275565-0b6b-482b-8d06-43c2cb3f03fd.jpg',
+                desc: ''
             },
             {
-                name:"Expresso Machine",
-                image:"https://farm9.staticflickr.com/8614/15889840936_e4e7c24e2f_z.jpg",
-                desc:"Make expresso and get work done"
+                name: 'Los Angeles',
+                image: 'http://lacity17.test-cityofla.acsitefactory.com/sites/g/files/wph781/f/styles/tiled_homepage_blog/public/bigstock-Los-Angeles-5909078.jpg?itok=ONWrQrCR',
+                desc: ''
             },
             {
-                name:"Mac Keyboard",
-                image:"https://farm4.staticflickr.com/3159/2656481112_e228ee592d_z.jpg",
-                desc:"Mac keyboard up for grabs. Lightly used."
+                name: 'Chicago',
+                image: 'https://socialmediaweek.org/chicago/files/2017/05/chicago.jpg',
+                desc: ''
             },
             {
-                name:"Aged Book",
-                image:"https://farm5.staticflickr.com/4763/39664194771_c279ebcf5e_z.jpg",
-                desc:"This is a pretty cool looking aged book. Spruce up your decor with this statement peice. Its probably not '50 Shades of Gray'."
+                name: 'New York',
+                image: 'https://photos.mandarinoriental.com/is/image/MandarinOriental/new-york-2017-columbus-circle-01?wid=2880&hei=1280&fmt=jpeg&crop=6,1064,4928,2190&anchor=2032,2134&qlt=75,0&op_sharpen=0&resMode=sharp2&op_usm=0,0,0,0&iccEmbed=0&printRes=72&fit=crop',
+                desc: ''
             },
-            {
-                name:"Spyro the Dragon",
-                image:"http://www.mobygames.com/images/covers/l/17925-spyro-the-dragon-playstation-front-cover.jpg",
-                desc:"Spyro the Dragon, who lives by the sea."
-            },
-            {
-                name:"Necklace",
-                image:"https://www.claires.com/dw/image/v2/BBTK_PRD/on/demandware.static/-/Sites-master-catalog/default/dwbc3b2b4c/images/hi-res/09124_1.jpg?sw=2000&sh=2000&sm=fit",
-                desc:"I left my computer unlocked and someone ordered this neclace on my Amazon account."
-            }
         ];
 
         this.cards = this.renderCards(this.items, this.items.length, this.aspectRatio, Math.round(1200 * (4 / 3)));
@@ -59,7 +49,9 @@ class Carousel extends Component {
             index: 0
         };
     }
-
+    actionClick() {
+        window.alert('Please Log in!');
+    }
     // Centers the controls within the image using the method from AspectRatioCard
     getControlOffset(aspectRatio) {
         return (width, controlHeight) => {
@@ -86,6 +78,7 @@ class Carousel extends Component {
                     <AspectRatioCardTitle data-slot={'caption'} title={title}/>
                     <AspectRatioCardText data-slot={'content'} text={text}/>
                 </AspectRatioCard>
+
             );
         }
         return cards;
@@ -94,19 +87,23 @@ class Carousel extends Component {
     render() {
         return (
             <CardCarousel
+                actionText={'Start Planning'}
+                actionHref={'https://www.homeaway.com'}
+                actionHrefTarget={'_blank'}
                 breakpoints={{
                     '820': 4,
                     '540': 3,
-                    '0': 2
+                    '0': 2,
                 }}
                 cardIndex={this.state.index}
                 getControlOffset={this.getControlOffset(this.aspectRatio)}
                 onNextClick={this.handlePrevNext}
                 onPreviousClick={this.handlePrevNext}
+                onActionClick={this.actionClick}
                 nextLabel={'Next'}
                 paging
                 previousLabel={'Previous'}
-                title={'Available Items'}
+                title={'Popular Destinations'}
             >
                 {this.cards}
             </CardCarousel>
